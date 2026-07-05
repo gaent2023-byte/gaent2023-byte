@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useMemo } from 'react';
 import { createBrowserClient } from '@/lib/supabase/client';
 import type { Database } from '@/lib/database.types';
 
@@ -18,7 +18,7 @@ export type ReportDetailData = {
 };
 
 export function useReportDetail(reportId: string): ReportDetailData {
-  const supabase = createBrowserClient();
+  const supabase = useMemo(() => createBrowserClient(), []);
   const [state, setState] = useState<ReportDetailData>({
     report: null, sections: [], supplier: null, loading: true, error: null, refetch: () => {},
   });

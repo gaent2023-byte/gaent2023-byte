@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useMemo } from 'react';
 import { createBrowserClient } from '@/lib/supabase/client';
 import type { Database } from '@/lib/database.types';
 
@@ -33,7 +33,7 @@ export type DashboardData = {
 };
 
 export function useDashboardData() {
-  const supabase = createBrowserClient();
+  const supabase = useMemo(() => createBrowserClient(), []);
   const [data, setData] = useState<DashboardData | null>(null);
 
   const load = useCallback(async () => {

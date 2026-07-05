@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback, useMemo } from 'react';
 import { createBrowserClient } from '@/lib/supabase/client';
 import type { Database } from '@/lib/database.types';
 
@@ -46,7 +46,7 @@ export type SupplierDetailData = {
 };
 
 export function useSupplierDetail(supplierId: string): SupplierDetailData {
-  const supabase = createBrowserClient();
+  const supabase = useMemo(() => createBrowserClient(), []);
   const [state, setState] = useState<SupplierDetailData>({
     supplier: null, businessProfile: null, addresses: [], contacts: [], personnel: [],
     products: [], financialRatios: [], financialStatements: [], banking: [], payment: null,
